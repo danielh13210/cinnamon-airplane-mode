@@ -35,11 +35,15 @@ def update_icon():
         applet.set_visible(False)
     return True  # Keep the timeout running
 
-# Initial check
-update_icon()
+def main():
+    # Initial check
+    update_icon()
 
-# Refresh every few seconds
-GLib.timeout_add_seconds(CHECK_INTERVAL, update_icon)
+    # Refresh every few seconds
+    GLib.timeout_add_seconds(CHECK_INTERVAL, update_icon)
 
-# Start the GTK main loop
-GLib.MainLoop().run()
+    # Start the GTK main loop
+    GLib.MainLoop().run()
+
+if __name__ == "__main__":
+    main()
