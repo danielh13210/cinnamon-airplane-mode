@@ -7,7 +7,7 @@ gi.require_version('XApp', '1.0')
 from gi.repository import XApp, GLib
 
 ICON_ON = "airplane-mode-symbolic"
-CHECK_INTERVAL = 5  # seconds
+CHECK_INTERVAL = 2  # seconds
 
 # Create the status applet (but don't show it yet)
 applet = XApp.StatusIcon()
