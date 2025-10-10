@@ -11,7 +11,7 @@ CHECK_INTERVAL = 5  # seconds
 
 # Create the status applet (but don't show it yet)
 applet = XApp.StatusIcon()
-applet.set_title("Airplane Mode Indicator")
+applet.set_tooltip_text("Airplane Mode Indicator")
 
 def is_airplane_mode():
     """Check if airplane mode is active using nmcli."""
