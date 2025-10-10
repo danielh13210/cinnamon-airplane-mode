@@ -27,13 +27,12 @@ def is_airplane_mode():
 
 def update_icon():
     """Show or hide the applet based on airplane mode status."""
-    if enabled:=is_airplane_mode():
+    if is_airplane_mode():
         applet.set_icon_name(ICON_ON)
         applet.set_tooltip_text("Airplane Mode: ON")
         applet.set_visible(True)
     else:
         applet.set_visible(False)
-    print(enabled)
     return True  # Keep the timeout running
 
 # Initial check
