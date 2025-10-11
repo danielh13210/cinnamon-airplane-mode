@@ -5,3 +5,4 @@ Comment=Show an indicator when Airplane Mode is enabled (all radios off)
 Exec=sh -c "/usr/bin/python3 $HOME/.local/share/cinnamon-airplane-mode/main.py"
 Icon=airplane-mode-symbolic
 Terminal=false
+OnlyShowIn=Cinnamon;X-Cinnamon
