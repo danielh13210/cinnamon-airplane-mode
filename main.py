@@ -13,14 +13,23 @@ CHECK_INTERVAL = 2  # seconds
 applet = XApp.StatusIcon()
 applet.set_tooltip_text("Airplane Mode Indicator")
 
+def get_radio_status() -> dict:
+    """ return a dict for device statuses """
+    output = subprocess.check_output(["nmcli","radio","all"],text=True)
+    devices,statuses_raw=tuple(map(str.split,output.splitlines()))
+    statuses=map(lambda s:'enabled' in s,statuses_raw)
+    return dict(zip(devices,statuses))
+
 def is_airplane_mode():
     """Check if airplane mode is active using nmcli."""
     try:
-        output = subprocess.check_output("nmcli radio all | tail -n +2 | xargs | tr ' ' '\n'",shell=True, text=True)
-        output=output.lower()
-        #Modulo check to get odd lines only (software block state)
-        #This line means that it returns True if any radio is effectively enabled
-        return not any(map(lambda x:True if 'enabled' in x[1] else False,filter(lambda x:x[0]%2==1,enumerate(output.splitlines()))))
+        statuses=get_radio_status()
+        for device_type in filter(lambda dev:not dev.endswith('-HW'),statuses.keys()):
+             hw_on=statuses[device_type+'-HW']
+             sw_on=statuses[device_type]
+             if hw_on and sw_on:
+               return False
+        return True
     except Exception as e:
         print(f"Error checking airplane mode: {e}")
         return False
