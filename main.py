@@ -15,7 +15,7 @@ applet.set_tooltip_text("Airplane Mode Indicator")
 
 def get_radio_status() -> dict:
     """ return a dict for device statuses """
-    output = subprocess.check_output(["nmcli","radio","all"],text=True)
+    output = subprocess.check_output(["env","LANG=\"\"","nmcli","radio","all"],text=True)
     devices,statuses_raw=tuple(map(str.split,output.splitlines()))
     statuses=map(lambda s:'enabled' in s,statuses_raw)
     return dict(zip(devices,statuses))
